@@ -38,8 +38,26 @@ export default function Home() {
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
-    return () => obs.disconnect();
+
+    const observeReveal = (el: Element) => {
+      if (!el.classList.contains("visible")) obs.observe(el);
+    };
+
+    document.querySelectorAll(".reveal").forEach(observeReveal);
+
+    // Catch dynamically inserted .reveal elements (e.g. tab switches).
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((n) => {
+          if (!(n instanceof Element)) return;
+          if (n.classList?.contains("reveal")) observeReveal(n);
+          n.querySelectorAll?.(".reveal").forEach(observeReveal);
+        });
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => { obs.disconnect(); mo.disconnect(); };
   }, [lang]);
 
   const t = STRINGS[lang];

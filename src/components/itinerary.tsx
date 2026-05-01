@@ -114,7 +114,7 @@ export default function Itinerary({ t }: { t: Strings }) {
         <div style={{ marginTop: 50, maxWidth: 820, margin: "50px auto 0", position: "relative" }}>
           <div style={{ position: "absolute", left: "calc(50% - 0.5px)", top: 0, bottom: 0, width: 1, background: "linear-gradient(var(--marigold-300), rgba(201,163,106,0.05))" }} className="timeline-line"/>
           {events.map((ev, i) => (
-            <div key={ev.title} className="reveal timeline-row" style={{
+            <div key={ev.title} className="timeline-row" style={{
               display: "grid", gridTemplateColumns: "1fr 60px 1fr", gap: 0, marginBottom: 24, alignItems: "center",
             }}>
               {i % 2 === 0 ? <ItineraryCard ev={ev} align="right"/> : <div/>}
