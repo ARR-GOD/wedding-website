@@ -1,5 +1,9 @@
 export type Lang = "en" | "fr";
 
+export interface CityListItem { name: string; url: string }
+
+export interface CityPhoto { src: string; caption: string }
+
 export interface City {
   name: string;
   x: number;
@@ -8,7 +12,18 @@ export interface City {
   role?: string;
   tag?: string;
   todo: string[];
-  stay?: { name: string; url: string };
+  photos?: CityPhoto[];
+  stay?: CityListItem[];
+  eat?: CityListItem[];
+  shop?: CityListItem[];
+  extra?: CityListItem[];
+}
+
+export interface GettingThereCard {
+  icon: string;
+  kicker: string;
+  title: string;
+  body: string;
 }
 
 export interface Strings {
@@ -44,7 +59,14 @@ export interface Strings {
     lead: string;
     day1: { date: string; title: string; subtitle: string };
     day2: { date: string; title: string; subtitle: string };
+    day3: { date: string; title: string; subtitle: string };
     events: { day: number; time: string; title: string; body: string; icon: string }[];
+    gettingThere: {
+      title: string;
+      lead: string;
+      cards: GettingThereCard[];
+      teaser: string;
+    };
   };
   ceremonies: {
     eyebrow: string;
@@ -58,6 +80,11 @@ export interface Strings {
     lead: string;
     tipsTitle: string;
     tips: { icon: string; title: string; body: string }[];
+    whatToDo: string;
+    whereToStay: string;
+    whereToEat: string;
+    whereToShop: string;
+    more: string;
   };
   cities: City[];
   hotels: {
@@ -88,15 +115,23 @@ export interface Strings {
     attending: string;
     yes: string;
     no: string;
-    events: string;
-    guests: string;
+    arrivalIndia: string;
+    arrivalCity: string;
+    arrivalIndiaDate: string;
+    arrivalUdaipur: string;
+    arrivalUdaipurDate: string;
+    departure: string;
+    departureCity: string;
+    departureDate: string;
     diet: string;
     dietPlaceholder: string;
-    song: string;
-    songPlaceholder: string;
-    message: string;
-    messagePlaceholder: string;
+    whatsapp: string;
+    whatsappPlaceholder: string;
+    extra: string;
+    extraPlaceholder: string;
     submit: string;
+    sending: string;
+    errorMsg: string;
     success: string;
     successBody: string;
   };
@@ -118,22 +153,13 @@ export interface Strings {
 
 const STRINGS: Record<Lang, Strings> = {
   en: {
-    nav: {
-      story: "Our Story",
-      itinerary: "Itinerary",
-      ceremonies: "Ceremonies",
-      travel: "Travel",
-      stay: "Stay",
-      dressCode: "Dress Code",
-      faq: "FAQ",
-      rsvp: "RSVP",
-    },
+    nav: { story: "Our Story", itinerary: "Itinerary", ceremonies: "Ceremonies", travel: "Travel", stay: "Stay", dressCode: "Dress Code", faq: "FAQ", rsvp: "RSVP" },
     hero: {
       eyebrow: "We're getting married",
       and: "&",
       saveTheDate: "Save the date",
-      date: "18 — 19 September 2026",
-      location: "Udaipur · India",
+      date: "18 — 20 September 2026",
+      location: "Chunda Palace · Udaipur, India",
       cta: "RSVP",
       ctaSecondary: "View itinerary",
     },
@@ -143,18 +169,21 @@ const STRINGS: Record<Lang, Strings> = {
       title: "Two cultures, one love",
       lead: "From a chance meeting to a lifetime — here's how we got here.",
       chapters: [
-        { year: "2021", title: "First meeting", body: "We met during a study-abroad summer in Paris. Joseph was sketching at a cafe in Le Marais; Shambhavi sat at the next table sketching the same fountain. We compared drawings — hers was better." },
-        { year: "2022", title: "Across continents", body: "A year of late-night calls between Mumbai and Lyon. Shambhavi taught Joseph to roll chapatis over FaceTime. He taught her how to pronounce \"croissant\" properly." },
-        { year: "2024", title: "Coming home", body: "We moved in together in Lisbon, somewhere between our two worlds. Got a cat. Named her Pondichery." },
-        { year: "2025", title: "The proposal", body: "On the steps of the City Palace in Udaipur, at sunset, with Pondichery watching from a window back home. She said yes before he finished asking." },
+        { year: "2020", title: "How we met", body: "Nantes, mutual friends, and that one party where nobody saw it coming. Nobody except maybe the two of us." },
+        { year: "2021", title: "Lockdown, startup-garage edition", body: "We spent the year between the Ecole des Mines campus and Joseph's flat — officially a \"startup garage,\" unofficially our HQ. That summer, Joseph landed in India for the first time: Bombay, Sham's family and friends, and a baptism by fire on the spice front." },
+        { year: "2022", title: "Off to Paris", body: "Sham got her permanent contract at a consulting firm; Joseph moved Loyoly (then Wiink) into Station F, the HEC incubator. Two flats, two commutes, and far too many \"so whose place tonight?\"." },
+        { year: "2023", title: "One roof", body: "We finally settled it: one flat, in Paris, together. The thermostat debate, however, remains unsettled." },
+        { year: "2026", title: "The proposal, under the auroras", body: "In March, in Tromso, under the northern lights. The question (finally) got asked. The answer didn't take long." },
+        { year: "Today", title: "", body: "A few snails, far too many bubble teas, 6 trips to India and 7 countries discovered together later — we're celebrating our wedding with you." },
       ],
     },
     itinerary: {
       eyebrow: "The Celebration",
-      title: "Two days of joy",
-      lead: "An Indian wedding is a series of small, beautiful rituals — each one a chapter. Here's what to expect.",
-      day1: { date: "Thursday, 18 September", title: "Mehendi & Sangeet", subtitle: "Arrival, henna, music & dance" },
-      day2: { date: "Friday, 19 September", title: "Wedding Day", subtitle: "Haldi, baraat, pheras & reception" },
+      title: "Three days of joy",
+      lead: "An Indian wedding is a series of small, beautiful rituals — each one a chapter. Here's what to expect, day by day.",
+      day1: { date: "Friday, 18 September", title: "Mehendi & Sangeet", subtitle: "Arrival, henna, music & dance" },
+      day2: { date: "Saturday, 19 September", title: "Wedding Day", subtitle: "Haldi, baraat, pheras & reception" },
+      day3: { date: "Sunday, 20 September", title: "Farewell Brunch", subtitle: "A slow goodbye by the lake" },
       events: [
         { day: 1, time: "Afternoon", title: "Arrival & check-in", body: "Settle in, have lunch by the lake, take a swim. Optional: a final dance practice for tonight.", icon: "luggage" },
         { day: 1, time: "5:00 PM", title: "Ganesh Puja", body: "A short Hindu prayer to bless the start of the celebrations.", icon: "flame" },
@@ -166,7 +195,19 @@ const STRINGS: Record<Lang, Strings> = {
         { day: 2, time: "4:00 PM", title: "Baraat", body: "The groom's procession arrives with music, dancing and drums. Bring your energy.", icon: "drum" },
         { day: 2, time: "5:30 PM", title: "Pheras", body: "The wedding ceremony around a sacred fire — seven circles, seven vows.", icon: "fire" },
         { day: 2, time: "Night", title: "Reception", body: "Cocktails, speeches, music. The first night of the rest of our lives.", icon: "stars" },
+        { day: 3, time: "11:00 AM", title: "Farewell Brunch", body: "A relaxed brunch by the pool to nurse the celebrations and say see-you-soon. No dress code.", icon: "sun" },
+        { day: 3, time: "Afternoon", title: "Departures", body: "Check-out is flexible — stay another night if you can. We'll help arrange transport to the airport.", icon: "luggage" },
       ],
+      gettingThere: {
+        title: "Getting there",
+        lead: "A few practical notes to help you plan. We'll also dedicate a full section further down to options around your trip.",
+        cards: [
+          { icon: "plane", kicker: "Step 1", title: "Fly to Mumbai (BOM)", body: "Most international guests fly into Mumbai. From Paris, expect a direct round-trip on Air India or Vistara, around 9 hours each way. Book a return ticket Paris ⇄ Mumbai first." },
+          { icon: "plane", kicker: "Step 2", title: "Then Mumbai → Udaipur (UDR)", body: "Book a separate domestic ticket from Mumbai to Udaipur — IndiGo, Air India and Vistara all fly daily, ~1h30. Buying it separately is usually cheaper and gives you flexibility." },
+          { icon: "car", kicker: "Step 3", title: "Udaipur airport → the venue", body: "Chunda Palace is ~30 min by car from Udaipur airport (UDR). We'll arrange complimentary transfers — just send us your flight details with your RSVP." },
+        ],
+        teaser: "Want to extend the trip? See \"Travel\" below for suggested itineraries through Rajasthan, Mumbai and Goa.",
+      },
     },
     ceremonies: {
       eyebrow: "What does it all mean?",
@@ -196,27 +237,94 @@ const STRINGS: Record<Lang, Strings> = {
         { icon: "wallet", title: "Money", body: "Cards and Google Pay work everywhere formal. Carry cash (Indian Rupee, INR) for markets, tuk-tuks and small vendors." },
         { icon: "luxury", title: "Luxury is affordable", body: "India offers exceptional luxury at a fraction of European prices. Treat yourself — stay somewhere unforgettable." },
       ],
+      whatToDo: "What to do",
+      whereToStay: "Where to stay",
+      whereToEat: "Where to eat",
+      whereToShop: "Where to shop",
+      more: "More",
     },
     cities: [
       { name: "Udaipur", x: 30, y: 38, vibe: "Romantic, serene, dreamy", role: "wedding", tag: "Wedding city",
-        todo: ["Take a boat ride on Lake Pichola", "Wander through the City Palace", "Sunset from a rooftop cafe", "Visit Jag Mandir island"] },
+        photos: [
+          { src: "/udaipur-lake-view.png", caption: "Lake Pichola" },
+          { src: "/udaipur-jag-mandir.png", caption: "Jag Mandir" },
+          { src: "/udaipur-sunset-boat.png", caption: "Golden hour" },
+        ],
+        todo: ["Take a boat ride on Lake Pichola", "Wander through the City Palace", "Sunset from a rooftop cafe", "Visit Jag Mandir island", "See miniature paintings — a speciality of this area"],
+        stay: [
+          { name: "Kankarwa Haveli", url: "https://www.kankarwahaveli.com/" },
+          { name: "Many beautiful 5-star properties on Booking.com", url: "https://www.booking.com/city/in/udaipur.html" },
+        ],
+      },
       { name: "Jaipur", x: 36, y: 30, vibe: "Royal, vibrant, full of heritage charm",
-        todo: ["Explore Amber Fort and its grand architecture", "Walk past the iconic Hawa Mahal", "Shop in Johari & Bapu Bazaar", "Visit City Palace & learn royal history"],
-        stay: { name: "The Johri", url: "https://www.thejohrijaipur.com/suites/" } },
+        photos: [
+          { src: "/jaipur-hawa-mahal.png", caption: "Hawa Mahal" },
+          { src: "/jaipur-amber-fort.png", caption: "Amber Fort" },
+          { src: "/jaipur-city-palace.png", caption: "City Palace" },
+        ],
+        todo: ["Explore Amber Fort and its grand architecture", "Walk past the iconic Hawa Mahal", "Shop the colourful bazaars (Johari & Bapu Bazaar)", "Catch a polo match — usually free, played by the royal families, a great way to spend an evening", "Visit City Palace & learn royal history"],
+        stay: [
+          { name: "The Johri", url: "https://www.thejohrijaipur.com/suites/" },
+          { name: "Villa Palladio", url: "https://www.villa-palladio-jaipur.com/en/rooms-and-suite" },
+          { name: "Jai Mahal Palace", url: "https://www.myboutiquehotel.com/en/boutique-hotels-jaipur/taj-jai-mahal-palace.html" },
+          { name: "Alsisar Haveli", url: "https://www.myboutiquehotel.com/en/boutique-hotels-jaipur/alsisar-haveli-heritage-hotel.html" },
+        ],
+        shop: [
+          { name: "Anokhi", url: "https://www.anokhi.com/" },
+          { name: "Bapu Bazar", url: "" },
+        ],
+      },
       { name: "Jodhpur", x: 22, y: 32, vibe: "Rustic, bold, historic with desert energy",
-        todo: ["Explore Mehrangarh Fort (epic views!)", "Walk through the blue old city lanes", "Visit Umaid Bhawan Palace", "Try local Rajasthani food"] },
-      { name: "Mumbai", x: 30, y: 56, vibe: "Fast-paced, energetic, the country's beating heart",
-        todo: ["Walk along Marine Drive at sunset", "Visit Gateway of India & Victoria Terminus", "Explore cafes, nightlife & shopping"] },
+        photos: [
+          { src: "/jodhpur-blue-city.png", caption: "Blue City" },
+          { src: "/jodhpur-blue-street.png", caption: "Old lanes" },
+          { src: "/jodhpur-fort-sunset.png", caption: "Mehrangarh" },
+        ],
+        todo: ["Explore Mehrangarh Fort (epic views!)", "Walk through the blue old city lanes", "Visit Umaid Bhawan Palace", "Try local Rajasthani food"],
+        stay: [
+          { name: "Daspan House", url: "https://www.daspanhouse.com/" },
+          { name: "RAAS Jodhpur", url: "https://raashotels.com/raas-jodhpur/" },
+          { name: "Umaid Bhawan Palace", url: "https://www.tajhotels.com/en-in/hotels/umaid-bhawan-palace-jodhpur" },
+        ],
+      },
+      { name: "Mumbai", x: 30, y: 56, vibe: "Fast-paced, energetic, chaotic but exciting — India's financial capital",
+        photos: [
+          { src: "/mumbai-gateway.png", caption: "Gateway of India" },
+          { src: "/mumbai-victoria.png", caption: "Victoria Terminus" },
+        ],
+        todo: ["Stay in Colaba (Art Deco & British architecture, Gateway of India) or Bandra (cool cafes)", "Walk along Marine Drive at sunset", "Visit the Gateway of India & Victoria Terminus", "Explore cafes, nightlife & shopping", "Take a free walking tour with Guruwalk"],
+        stay: [
+          { name: "Taj Mahal Palace", url: "https://www.tajhotels.com/en-in/hotels/taj-mahal-palace-mumbai" },
+          { name: "Abode Boutique Hotel", url: "https://www.abodeboutiquehotels.com/abode-bombay.php" },
+        ],
+        eat: [
+          { name: "Bombay Canteen — fusion Indian, great cocktails", url: "https://maps.app.goo.gl/nB81aEreKrbsA9wq9" },
+          { name: "Boojee Cafe — coffee & food", url: "https://maps.app.goo.gl/xfmUcoMjDbGxNJx6A" },
+        ],
+        extra: [
+          { name: "Free walking tour of Mumbai (Guruwalk)", url: "https://www.guruwalk.com/walks/51295-free-walking-tour-of-mumbai" },
+        ],
+      },
       { name: "Goa", x: 31, y: 66, vibe: "Chill, beachy, carefree (with a party side)",
-        todo: ["Beaches: Baga, Anjuna, Palolem", "Nightlife & beach parties", "Visit Old Goa churches", "Water sports — parasailing, jet ski"] },
+        photos: [
+          { src: "/goa-palm-beach.png", caption: "Palm beach" },
+          { src: "/goa-beach-bar.png", caption: "Sunset bar" },
+          { src: "/goa-basilica.png", caption: "Old Goa" },
+        ],
+        todo: ["Beaches: Baga, Anjuna, Palolem", "Nightlife & beach parties", "Visit Old Goa churches", "Water sports — parasailing, jet ski"],
+        stay: [
+          { name: "CGH Earth — Coconut Lagoon", url: "https://www.cghearth.com/coconut-lagoon" },
+        ],
+      },
       { name: "Kerala", x: 38, y: 82, vibe: "Calm, lush, slow-paced — backwaters & palms",
-        todo: ["Stay on a houseboat in Alleppey", "Cruise palm-lined canals", "Experience local village life", "Authentic Kerala cuisine"] },
+        photos: [
+          { src: "/kerala-houseboat.png", caption: "Houseboat" },
+          { src: "/kerala-backwaters.png", caption: "Backwaters" },
+        ],
+        todo: ["Stay on a houseboat in Alleppey", "Cruise palm-lined canals", "Experience local village life", "Authentic Kerala cuisine"],
+      },
     ],
-    hotels: {
-      eyebrow: "Where to stay",
-      title: "Hotels & accommodations",
-      lead: "We've blocked rooms at the wedding venue and a few alternates nearby. Reach out before booking — we may have group rates.",
-    },
+    hotels: { eyebrow: "Where to stay", title: "Hotels & accommodations", lead: "We've blocked rooms at the wedding venue and a few alternates nearby. Reach out before booking — we may have group rates." },
     dressCode: {
       eyebrow: "Wear with joy",
       title: "Dress code guide",
@@ -224,13 +332,7 @@ const STRINGS: Record<Lang, Strings> = {
       shopTitle: "Where to shop in India",
       shopBody: "Most cities have markets where you can buy beautiful Indian outfits at every budget. We can connect you with our families for recommendations once you arrive.",
     },
-    registry: {
-      eyebrow: "A note on gifts",
-      title: "Your presence is the gift",
-      body: "Truly. You've already crossed an ocean for us — that's more than we could ask. If you'd still like to mark the occasion, we're saving for our honeymoon and a small fund for our future home.",
-      honeymoon: "Honeymoon fund",
-      home: "Home fund",
-    },
+    registry: { eyebrow: "A note on gifts", title: "Your presence is the gift", body: "Truly. You've already crossed an ocean for us — that's more than we could ask. If you'd still like to mark the occasion, we're saving for our honeymoon and a small fund for our future home.", honeymoon: "Honeymoon fund", home: "Home fund" },
     rsvp: {
       eyebrow: "Will you join us?",
       title: "Please RSVP",
@@ -240,17 +342,25 @@ const STRINGS: Record<Lang, Strings> = {
       attending: "Will you attend?",
       yes: "Joyfully accepts",
       no: "Regretfully declines",
-      events: "Which events will you attend?",
-      guests: "Number of guests (including you)",
+      arrivalIndia: "Arrival in India",
+      arrivalCity: "Arrival city (e.g. Mumbai)",
+      arrivalIndiaDate: "Date & time of arrival",
+      arrivalUdaipur: "Arrival in Udaipur",
+      arrivalUdaipurDate: "Date & time of arrival in Udaipur",
+      departure: "Departure",
+      departureCity: "Departure city",
+      departureDate: "Date & time of departure",
       diet: "Dietary requirements",
       dietPlaceholder: "Vegetarian, allergies, anything we should know...",
-      song: "Song you'd like to hear",
-      songPlaceholder: "Make it a banger.",
-      message: "A note for us",
-      messagePlaceholder: "Anything you'd like to share...",
+      whatsapp: "WhatsApp number",
+      whatsappPlaceholder: "+33 6 ... (our wedding planner will reach out)",
+      extra: "Anything else we should know?",
+      extraPlaceholder: "Travelling with kids, mobility needs, surprises planned, anything...",
       submit: "Send RSVP",
-      success: "Thank you — your RSVP is in.",
-      successBody: "We'll be in touch with logistics closer to the date. We can't wait to see you in Udaipur.",
+      sending: "Sending…",
+      errorMsg: "Something went wrong — please try again or reach out to us directly.",
+      success: "Thank you!",
+      successBody: "Your RSVP has been received. We can't wait to see you in Udaipur.",
     },
     faq: {
       eyebrow: "Good to know",
@@ -265,35 +375,20 @@ const STRINGS: Record<Lang, Strings> = {
         { q: "Will there be transportation between events?", a: "Yes. All wedding events take place at the same venue, so you can walk between them. For travel before and after, we'll share guidance closer to the date." },
         { q: "Is the wedding kid-friendly?", a: "Children are welcome and will love the music and colour. Please note this in your RSVP so we can plan." },
         { q: "What language will the ceremony be in?", a: "The Hindu rituals are in Sanskrit. We'll have a printed guide (in English & French) explaining what's happening at each moment." },
+        { q: "How do I get internet / data in India?", a: "The easiest option is an eSIM — we recommend Airalo (airalo.com) for a quick India data plan you can install before you fly. Holafly and Nomad work too. Activate it as soon as you land. Most hotels also have decent Wi-Fi, but having mobile data makes taxis, maps and WhatsApp so much easier." },
       ],
     },
-    gallery: {
-      eyebrow: "Moments",
-      title: "Some of us, together",
-      lead: "A few favourites from the past few years. Tap any image to enlarge.",
-    },
-    footer: {
-      tagline: "We can't wait to celebrate with you.",
-      with: "With love,",
-    },
+    gallery: { eyebrow: "Moments", title: "Some of us, together", lead: "A few favourites from the past few years. Tap any image to enlarge." },
+    footer: { tagline: "We can't wait to celebrate with you.", with: "With love," },
   },
   fr: {
-    nav: {
-      story: "Notre Histoire",
-      itinerary: "Programme",
-      ceremonies: "Ceremonies",
-      travel: "Voyage",
-      stay: "Hebergement",
-      dressCode: "Dress Code",
-      faq: "FAQ",
-      rsvp: "RSVP",
-    },
+    nav: { story: "Notre Histoire", itinerary: "Programme", ceremonies: "Ceremonies", travel: "Voyage", stay: "Hebergement", dressCode: "Dress Code", faq: "FAQ", rsvp: "RSVP" },
     hero: {
       eyebrow: "Nous nous marions",
       and: "&",
       saveTheDate: "Reservez la date",
-      date: "18 — 19 Septembre 2026",
-      location: "Udaipur · Inde",
+      date: "18 — 20 Septembre 2026",
+      location: "Chunda Palace · Udaipur, Inde",
       cta: "RSVP",
       ctaSecondary: "Voir le programme",
     },
@@ -303,18 +398,21 @@ const STRINGS: Record<Lang, Strings> = {
       title: "Deux cultures, un seul amour",
       lead: "D'une rencontre fortuite a une vie entiere — voici comment nous en sommes arrives la.",
       chapters: [
-        { year: "2021", title: "Premiere rencontre", body: "Nous nous sommes rencontres lors d'un ete d'etudes a Paris. Joseph dessinait dans un cafe du Marais ; Shambhavi, a la table d'a cote, dessinait la meme fontaine. On a compare nos croquis — le sien etait meilleur." },
-        { year: "2022", title: "Entre deux continents", body: "Une annee d'appels nocturnes entre Mumbai et Lyon. Shambhavi a appris a Joseph a rouler des chapatis en FaceTime. Lui, a elle, a prononcer croissant correctement." },
-        { year: "2024", title: "Le retour a la maison", body: "Nous avons emmenage ensemble a Lisbonne, a mi-chemin entre nos deux mondes. On a adopte un chat. On l'a appele Pondichery." },
-        { year: "2025", title: "La demande", body: "Sur les marches du City Palace a Udaipur, au coucher du soleil, avec Pondichery qui regardait par la fenetre a la maison. Elle a dit oui avant qu'il finisse de demander." },
+        { year: "2020", title: "Premiere rencontre", body: "Nantes, des amis communs, et cette fameuse soiree ou personne n'avait prevu qu'il se passerait quelque chose. Personne sauf nous deux, peut-etre." },
+        { year: "2021", title: "Le confinement, version startup garage", body: "On a passe l'annee entre le campus de l'Ecole des Mines et l'appartement de Joseph — officiellement un startup garage, officieusement notre QG. Le meme ete, Joseph debarque pour la premiere fois en Inde : Bombay, la famille et les amis de Sham, et un bapteme du feu cote epices." },
+        { year: "2022", title: "Cap sur Paris", body: "Sham decroche son CDI en cabinet de conseil, Joseph installe Loyoly (Wiink a l'epoque) a Station F, dans l'incubateur d'HEC. Deux appartements, deux trajets, et beaucoup trop de tu dors chez qui ce soir ?." },
+        { year: "2023", title: "Un seul toit", body: "On finit par trancher : un seul appart, a Paris, a deux. Le debat sur la temperature du chauffage, lui, n'est toujours pas tranche." },
+        { year: "2026", title: "La demande, sous les aurores", body: "En mars, a Tromso, sous les aurores boreales. La question a (enfin) ete posee. La reponse n'a pas traine." },
+        { year: "Aujourd'hui", title: "", body: "Quelques escargots, beaucoup trop de bubble teas, 6 voyages en Inde et 7 pays decouverts ensemble plus tard — on celebre notre mariage avec vous." },
       ],
     },
     itinerary: {
       eyebrow: "La Celebration",
-      title: "Deux jours de joie",
-      lead: "Un mariage indien, c'est une suite de petits rituels — chacun un chapitre. Voici a quoi s'attendre.",
-      day1: { date: "Jeudi 18 septembre", title: "Mehendi & Sangeet", subtitle: "Arrivee, henne, musique & danse" },
-      day2: { date: "Vendredi 19 septembre", title: "Jour du mariage", subtitle: "Haldi, baraat, pheras & reception" },
+      title: "Trois jours de joie",
+      lead: "Un mariage indien, c'est une suite de petits rituels — chacun un chapitre. Voici a quoi s'attendre, jour apres jour.",
+      day1: { date: "Vendredi 18 septembre", title: "Mehendi & Sangeet", subtitle: "Arrivee, henne, musique & danse" },
+      day2: { date: "Samedi 19 septembre", title: "Jour du mariage", subtitle: "Haldi, baraat, pheras & reception" },
+      day3: { date: "Dimanche 20 septembre", title: "Brunch d'au revoir", subtitle: "Un adieu en douceur au bord du lac" },
       events: [
         { day: 1, time: "Apres-midi", title: "Arrivee & check-in", body: "Installez-vous, dejeunez au bord du lac, allez nager. En option : une derniere repetition de danse pour ce soir.", icon: "luggage" },
         { day: 1, time: "17h00", title: "Ganesh Puja", body: "Une courte priere hindoue pour benir le debut des festivites.", icon: "flame" },
@@ -326,7 +424,19 @@ const STRINGS: Record<Lang, Strings> = {
         { day: 2, time: "16h00", title: "Baraat", body: "Le cortege du marie arrive avec musique, danses et tambours. Apportez votre energie.", icon: "drum" },
         { day: 2, time: "17h30", title: "Pheras", body: "La ceremonie autour du feu sacre — sept tours, sept voeux.", icon: "fire" },
         { day: 2, time: "Soiree", title: "Reception", body: "Cocktails, discours, musique. La premiere soiree du reste de notre vie.", icon: "stars" },
+        { day: 3, time: "11h00", title: "Brunch d'au revoir", body: "Un brunch tranquille au bord de la piscine pour prolonger la fete et se dire a bientot. Pas de dress code.", icon: "sun" },
+        { day: 3, time: "Apres-midi", title: "Departs", body: "Le check-out est flexible — restez une nuit de plus si possible. On aide a organiser les transports vers l'aeroport.", icon: "luggage" },
       ],
+      gettingThere: {
+        title: "Comment venir",
+        lead: "Quelques infos pratiques pour preparer votre voyage. Une section dediee plus bas detaille les itineraires possibles autour du mariage.",
+        cards: [
+          { icon: "plane", kicker: "Etape 1", title: "Vol Paris ⇄ Bombay (BOM)", body: "La plupart des invites passent par Bombay. Depuis Paris, vol direct aller-retour en ~9h sur Air India ou Vistara. Reservez d'abord votre billet aller-retour Paris ⇄ Bombay." },
+          { icon: "plane", kicker: "Etape 2", title: "Puis Bombay → Udaipur (UDR)", body: "Prenez ensuite un billet separe Bombay → Udaipur — IndiGo, Air India et Vistara y volent tous les jours, ~1h30. C'est en general moins cher en deux billets separes, et plus flexible." },
+          { icon: "car", kicker: "Etape 3", title: "Aeroport d'Udaipur → le palais", body: "Chunda Palace est a ~30 min en voiture de l'aeroport d'Udaipur (UDR). Nous organisons les transferts gratuitement — envoyez-nous vos vols avec votre RSVP." },
+        ],
+        teaser: "Envie d'allonger le voyage ? La section Voyage plus bas propose des itineraires a travers le Rajasthan, Bombay et Goa.",
+      },
     },
     ceremonies: {
       eyebrow: "Que signifie tout cela ?",
@@ -356,27 +466,94 @@ const STRINGS: Record<Lang, Strings> = {
         { icon: "wallet", title: "Argent", body: "Cartes et Google Pay partout dans les lieux formels. Gardez du liquide (Roupie indienne, INR) pour les marches, tuk-tuks et petits commercants." },
         { icon: "luxury", title: "Le luxe est accessible", body: "L'Inde offre un luxe exceptionnel a une fraction des prix europeens. Faites-vous plaisir — dormez dans un endroit inoubliable." },
       ],
+      whatToDo: "Que faire",
+      whereToStay: "Ou dormir",
+      whereToEat: "Ou manger",
+      whereToShop: "Ou acheter",
+      more: "Plus",
     },
     cities: [
       { name: "Udaipur", x: 30, y: 38, vibe: "Romantique, sereine, feerique", role: "wedding", tag: "Ville du mariage",
-        todo: ["Promenade en bateau sur le lac Pichola", "Flaner dans le City Palace", "Coucher de soleil depuis un cafe perche", "Visiter l'ile de Jag Mandir"] },
+        photos: [
+          { src: "/udaipur-lake-view.png", caption: "Lac Pichola" },
+          { src: "/udaipur-jag-mandir.png", caption: "Jag Mandir" },
+          { src: "/udaipur-sunset-boat.png", caption: "Heure doree" },
+        ],
+        todo: ["Promenade en bateau sur le lac Pichola", "Flaner dans le City Palace", "Coucher de soleil depuis un cafe perche", "Visiter l'ile de Jag Mandir", "Decouvrir les peintures miniatures — specialite de la region"],
+        stay: [
+          { name: "Kankarwa Haveli", url: "https://www.kankarwahaveli.com/" },
+          { name: "Beaucoup de beaux 5 etoiles sur Booking.com", url: "https://www.booking.com/city/in/udaipur.html" },
+        ],
+      },
       { name: "Jaipur", x: 36, y: 30, vibe: "Royale, vibrante, pleine de patrimoine",
-        todo: ["Explorer le Fort d'Amber et son architecture", "Admirer le Hawa Mahal", "Faire les bazars Johari et Bapu", "City Palace et histoire royale"],
-        stay: { name: "The Johri", url: "https://www.thejohrijaipur.com/suites/" } },
+        photos: [
+          { src: "/jaipur-hawa-mahal.png", caption: "Hawa Mahal" },
+          { src: "/jaipur-amber-fort.png", caption: "Fort d'Amber" },
+          { src: "/jaipur-city-palace.png", caption: "City Palace" },
+        ],
+        todo: ["Explorer le Fort d'Amber et son architecture", "Admirer le Hawa Mahal", "Faire les bazars colores (Johari & Bapu)", "Assister a un match de polo — souvent gratuit, joue par les familles royales, une belle soiree", "City Palace et histoire royale"],
+        stay: [
+          { name: "The Johri", url: "https://www.thejohrijaipur.com/suites/" },
+          { name: "Villa Palladio", url: "https://www.villa-palladio-jaipur.com/en/rooms-and-suite" },
+          { name: "Jai Mahal Palace", url: "https://www.myboutiquehotel.com/en/boutique-hotels-jaipur/taj-jai-mahal-palace.html" },
+          { name: "Alsisar Haveli", url: "https://www.myboutiquehotel.com/en/boutique-hotels-jaipur/alsisar-haveli-heritage-hotel.html" },
+        ],
+        shop: [
+          { name: "Anokhi", url: "https://www.anokhi.com/" },
+          { name: "Bapu Bazar", url: "" },
+        ],
+      },
       { name: "Jodhpur", x: 22, y: 32, vibe: "Brute, audacieuse, energie du desert",
-        todo: ["Fort de Mehrangarh (vues spectaculaires !)", "Ruelles bleues de la vieille ville", "Umaid Bhawan Palace", "Cuisine locale du Rajasthan"] },
-      { name: "Mumbai", x: 30, y: 56, vibe: "Trepidante, energique, le coeur du pays",
-        todo: ["Marine Drive au coucher du soleil", "Gateway of India & Victoria Terminus", "Cafes, vie nocturne & shopping"] },
+        photos: [
+          { src: "/jodhpur-blue-city.png", caption: "Ville bleue" },
+          { src: "/jodhpur-blue-street.png", caption: "Vieilles ruelles" },
+          { src: "/jodhpur-fort-sunset.png", caption: "Mehrangarh" },
+        ],
+        todo: ["Fort de Mehrangarh (vues spectaculaires !)", "Ruelles bleues de la vieille ville", "Umaid Bhawan Palace", "Cuisine locale du Rajasthan"],
+        stay: [
+          { name: "Daspan House", url: "https://www.daspanhouse.com/" },
+          { name: "RAAS Jodhpur", url: "https://raashotels.com/raas-jodhpur/" },
+          { name: "Umaid Bhawan Palace", url: "https://www.tajhotels.com/en-in/hotels/umaid-bhawan-palace-jodhpur" },
+        ],
+      },
+      { name: "Mumbai", x: 30, y: 56, vibe: "Trepidante, energique, chaotique mais excitante — capitale financiere du pays",
+        photos: [
+          { src: "/mumbai-gateway.png", caption: "Gateway of India" },
+          { src: "/mumbai-victoria.png", caption: "Victoria Terminus" },
+        ],
+        todo: ["Loger a Colaba (architecture Art deco & britannique, Gateway of India) ou Bandra (cafes branches)", "Marine Drive au coucher du soleil", "Gateway of India & Victoria Terminus", "Cafes, vie nocturne & shopping", "Visite a pied gratuite avec Guruwalk"],
+        stay: [
+          { name: "Taj Mahal Palace", url: "https://www.tajhotels.com/en-in/hotels/taj-mahal-palace-mumbai" },
+          { name: "Abode Boutique Hotel", url: "https://www.abodeboutiquehotels.com/abode-bombay.php" },
+        ],
+        eat: [
+          { name: "Bombay Canteen — cuisine indienne fusion, super cocktails", url: "https://maps.app.goo.gl/nB81aEreKrbsA9wq9" },
+          { name: "Boojee Cafe — cafe & restauration", url: "https://maps.app.goo.gl/xfmUcoMjDbGxNJx6A" },
+        ],
+        extra: [
+          { name: "Visite a pied gratuite de Mumbai (Guruwalk)", url: "https://www.guruwalk.com/walks/51295-free-walking-tour-of-mumbai" },
+        ],
+      },
       { name: "Goa", x: 31, y: 66, vibe: "Cool, plages, insouciante (et festive)",
-        todo: ["Plages : Baga, Anjuna, Palolem", "Vie nocturne & beach parties", "Vieilles eglises de Old Goa", "Sports nautiques — parachute, jet ski"] },
+        photos: [
+          { src: "/goa-palm-beach.png", caption: "Plage & cocotiers" },
+          { src: "/goa-beach-bar.png", caption: "Bar coucher de soleil" },
+          { src: "/goa-basilica.png", caption: "Old Goa" },
+        ],
+        todo: ["Plages : Baga, Anjuna, Palolem", "Vie nocturne & beach parties", "Vieilles eglises de Old Goa", "Sports nautiques — parachute, jet ski"],
+        stay: [
+          { name: "CGH Earth — Coconut Lagoon", url: "https://www.cghearth.com/coconut-lagoon" },
+        ],
+      },
       { name: "Kerala", x: 38, y: 82, vibe: "Calme, luxuriante — backwaters & palmiers",
-        todo: ["Houseboat a Alleppey", "Croisiere sur les canaux", "Vie de village local", "Cuisine authentique du Kerala"] },
+        photos: [
+          { src: "/kerala-houseboat.png", caption: "Houseboat" },
+          { src: "/kerala-backwaters.png", caption: "Backwaters" },
+        ],
+        todo: ["Houseboat a Alleppey", "Croisiere sur les canaux", "Vie de village local", "Cuisine authentique du Kerala"],
+      },
     ],
-    hotels: {
-      eyebrow: "Ou dormir",
-      title: "Hotels & hebergements",
-      lead: "Nous avons reserve des chambres au lieu du mariage et dans quelques alternatives proches. Contactez-nous avant de reserver — nous avons peut-etre des tarifs de groupe.",
-    },
+    hotels: { eyebrow: "Ou dormir", title: "Hotels & hebergements", lead: "Nous avons reserve des chambres au lieu du mariage et dans quelques alternatives proches. Contactez-nous avant de reserver — nous avons peut-etre des tarifs de groupe." },
     dressCode: {
       eyebrow: "Habillez-vous avec joie",
       title: "Guide vestimentaire",
@@ -384,13 +561,7 @@ const STRINGS: Record<Lang, Strings> = {
       shopTitle: "Ou acheter en Inde",
       shopBody: "La plupart des villes ont des marches ou trouver de magnifiques tenues indiennes a tous les prix. On peut vous mettre en lien avec nos familles pour des recommandations sur place.",
     },
-    registry: {
-      eyebrow: "A propos des cadeaux",
-      title: "Votre presence est le cadeau",
-      body: "Vraiment. Vous avez deja traverse un ocean pour nous — c'est plus que ce qu'on pourrait demander. Si vous tenez a marquer le coup, on epargne pour notre lune de miel et un petit fonds pour notre futur chez-nous.",
-      honeymoon: "Lune de miel",
-      home: "Notre futur chez-nous",
-    },
+    registry: { eyebrow: "A propos des cadeaux", title: "Votre presence est le cadeau", body: "Vraiment. Vous avez deja traverse un ocean pour nous — c'est plus que ce qu'on pourrait demander. Si vous tenez a marquer le coup, on epargne pour notre lune de miel et un petit fonds pour notre futur chez-nous.", honeymoon: "Lune de miel", home: "Notre futur chez-nous" },
     rsvp: {
       eyebrow: "Serez-vous des notres ?",
       title: "Merci de repondre",
@@ -400,17 +571,25 @@ const STRINGS: Record<Lang, Strings> = {
       attending: "Serez-vous present(e) ?",
       yes: "Avec joie",
       no: "Avec regret",
-      events: "A quels evenements ?",
-      guests: "Nombre de personnes (vous compris)",
+      arrivalIndia: "Arrivee en Inde",
+      arrivalCity: "Ville d'arrivee (ex. Bombay)",
+      arrivalIndiaDate: "Date et heure d'arrivee",
+      arrivalUdaipur: "Arrivee a Udaipur",
+      arrivalUdaipurDate: "Date et heure d'arrivee a Udaipur",
+      departure: "Depart",
+      departureCity: "Ville de depart",
+      departureDate: "Date et heure de depart",
       diet: "Regime alimentaire",
       dietPlaceholder: "Vegetarien, allergies, a savoir...",
-      song: "Une chanson a passer",
-      songPlaceholder: "Choisissez bien.",
-      message: "Un mot pour nous",
-      messagePlaceholder: "Tout ce que vous voulez nous dire...",
+      whatsapp: "Numero WhatsApp",
+      whatsappPlaceholder: "+33 6 ... (notre wedding planner vous contactera)",
+      extra: "Informations complementaires",
+      extraPlaceholder: "Enfants, besoins specifiques, surprises prevues, tout ce qu'il faut savoir...",
       submit: "Envoyer",
-      success: "Merci — votre RSVP est bien arrive.",
-      successBody: "On reviendra vers vous avec la logistique avant la date. On a hate de vous voir a Udaipur.",
+      sending: "Envoi en cours…",
+      errorMsg: "Une erreur est survenue, merci de reessayer ou de nous contacter directement.",
+      success: "Merci !",
+      successBody: "Votre reponse a bien ete enregistree. Nous avons hate de vous retrouver a Udaipur.",
     },
     faq: {
       eyebrow: "Bon a savoir",
@@ -425,17 +604,11 @@ const STRINGS: Record<Lang, Strings> = {
         { q: "Y aura-t-il des transports entre les evenements ?", a: "Oui. Tous les evenements ont lieu sur le meme site, donc a pied. Pour le reste, on partagera des infos plus pres de la date." },
         { q: "Le mariage est-il adapte aux enfants ?", a: "Les enfants sont bienvenus et adoreront la musique et les couleurs. Mentionnez-le dans votre RSVP pour qu'on puisse organiser." },
         { q: "Dans quelle langue se deroule la ceremonie ?", a: "Les rituels hindous sont en sanskrit. On aura un guide imprime (en anglais et francais) qui explique chaque moment." },
+        { q: "Comment avoir Internet / de la data en Inde ?", a: "Le plus simple : une eSIM. On recommande Airalo (airalo.com) pour un forfait data en Inde, installe avant le depart. Holafly et Nomad fonctionnent aussi tres bien. Activez-la des l'atterrissage. Les hotels ont en general du Wi-Fi correct, mais avoir de la data rend les taxis, Maps et WhatsApp beaucoup plus simples." },
       ],
     },
-    gallery: {
-      eyebrow: "Moments",
-      title: "Quelques-uns de nous, ensemble",
-      lead: "Quelques preferes des dernieres annees. Cliquez pour agrandir.",
-    },
-    footer: {
-      tagline: "On a hate de feter ca avec vous.",
-      with: "Avec amour,",
-    },
+    gallery: { eyebrow: "Moments", title: "Quelques-uns de nous, ensemble", lead: "Quelques preferes des dernieres annees. Cliquez pour agrandir." },
+    footer: { tagline: "On a hate de feter ca avec vous.", with: "Avec amour," },
   },
 };
 

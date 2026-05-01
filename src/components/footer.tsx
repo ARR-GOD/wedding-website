@@ -16,7 +16,7 @@ export default function Footer({ t }: { t: Strings }) {
         <div style={{ marginTop: 24, fontSize: 13, letterSpacing: 1, color: "rgba(245,233,208,0.5)" }}>{t.footer.with}</div>
         <div className="script" style={{ fontSize: 64, color: "var(--marigold-300)", marginTop: 4 }}>Shambhavi & Joseph</div>
         <div style={{ marginTop: 40, fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: "rgba(245,233,208,0.4)" }}>
-          18 — 19 September 2026 · Udaipur · India
+          18 — 20 September 2026 · Chunda Palace · Udaipur · India
         </div>
       </div>
     </footer>

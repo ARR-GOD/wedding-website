@@ -18,6 +18,7 @@ export function WedIcon({ name, size = 24, color = "currentColor", strokeWidth =
     calendar: <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></>,
     "calendar-heart": <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M12 17l-2.5-2a1.5 1.5 0 0 1 2.5-2 1.5 1.5 0 0 1 2.5 2L12 17z"/></>,
     plane: <path d="M22 11l-9 9-2-6-6-2 9-9 4 1 4 4z"/>,
+    car: <><path d="M5 17V11l2-5h10l2 5v6"/><path d="M3 17h18v-2H3z"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></>,
     wallet: <><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 14h2"/></>,
     luxury: <><path d="M5 7l3-3h8l3 3-7 12z"/><path d="M5 7h14M9 7l3 12M15 7l-3 12"/></>,
     heart: <path d="M12 21s-7-5-9-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 5-9 10-9 10z"/>,

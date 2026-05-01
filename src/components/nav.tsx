@@ -36,7 +36,6 @@ export default function Nav({ t, lang, setLang }: { t: Strings; lang: Lang; setL
     { href: "#itinerary", label: t.nav.itinerary },
     { href: "#ceremonies", label: t.nav.ceremonies },
     { href: "#travel", label: t.nav.travel },
-    { href: "#stay", label: t.nav.stay },
     { href: "#dress-code", label: t.nav.dressCode },
     { href: "#faq", label: t.nav.faq },
   ];
@@ -63,7 +62,6 @@ export default function Nav({ t, lang, setLang }: { t: Strings; lang: Lang; setL
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
           <LangToggle lang={lang} setLang={setLang}/>
-          <a href="#rsvp" className="lyly-btn lyly-btn--primary lyly-btn--sm desktop-only" style={{ height: 36 }}>{t.nav.rsvp}</a>
           <button onClick={() => setMobileOpen(true)} className="mobile-only" style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
             <WedIcon name="menu" size={24} color="var(--henna-700)"/>
           </button>
@@ -81,7 +79,6 @@ export default function Nav({ t, lang, setLang }: { t: Strings; lang: Lang; setL
             {links.map(l => (
               <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="serif-display" style={{ fontSize: 32, color: "var(--henna-700)" }}>{l.label}</a>
             ))}
-            <a href="#rsvp" onClick={() => setMobileOpen(false)} className="lyly-btn lyly-btn--primary" style={{ marginTop: 16, alignSelf: "flex-start" }}>{t.nav.rsvp}</a>
           </div>
         </div>
       )}

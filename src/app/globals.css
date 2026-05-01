@@ -2,21 +2,22 @@
 @import "tailwindcss";
 
 :root {
-  --marigold-50:  #FFF6E5;
-  --marigold-100: #FCE9C2;
-  --marigold-200: #F8D17A;
-  --marigold-300: #F2B23A;
-  --marigold-400: #E89414;
-  --marigold-500: #C97608;
-  --marigold-600: #A05C04;
+  /* Mauve & blush palette — accent + gold + dark + ink */
+  --marigold-50:  #FBF1E2;
+  --marigold-100: #F1DEBF;
+  --marigold-200: #E5C99A;
+  --marigold-300: #D9B97E;
+  --marigold-400: #C9A36A;   /* gold */
+  --marigold-500: #A8854F;
+  --marigold-600: #8A6A3E;
 
-  --henna-300: #B97A3F;
-  --henna-500: #7A4A21;
-  --henna-700: #4E2E12;
+  --henna-300: #9A7570;
+  --henna-500: #6E4F4D;
+  --henna-700: #4A2E33;       /* ink (text/headings) */
 
-  --sindoor-300: #E07A66;
-  --sindoor-500: #B23A2E;
-  --sindoor-700: #7A1F18;
+  --sindoor-300: #C28A92;
+  --sindoor-500: #9A5566;     /* accent */
+  --sindoor-700: #6F3946;
 
   --peacock-500: #0E5E66;
   --gold-foil:   #C9A24A;
@@ -25,7 +26,7 @@
 
   --bg:        var(--ivory);
   --bg-raised: #FFFCF3;
-  --bg-dark:   #2A130C;
+  --bg-dark:   #3A252B;
 
   --accent:       var(--sindoor-500);
   --accent-hover: var(--sindoor-700);

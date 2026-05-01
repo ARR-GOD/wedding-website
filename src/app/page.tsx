@@ -8,10 +8,7 @@ import Story from "@/components/story";
 import Itinerary from "@/components/itinerary";
 import Ceremonies from "@/components/ceremonies";
 import Travel from "@/components/travel";
-import Hotels from "@/components/hotels";
 import DressCode from "@/components/dress-code";
-import Gallery from "@/components/gallery";
-import Registry from "@/components/registry";
 import RSVP from "@/components/rsvp";
 import FAQ from "@/components/faq";
 import Footer from "@/components/footer";
@@ -46,7 +43,7 @@ export default function Home() {
   }, [lang]);
 
   const t = STRINGS[lang];
-  const weddingDate = "2026-09-19T16:00:00+05:30";
+  const weddingDate = "2026-09-19T17:30:00+05:30";
 
   return (
     <>
@@ -56,10 +53,7 @@ export default function Home() {
       <Itinerary t={t}/>
       <Ceremonies t={t}/>
       <Travel t={t}/>
-      <Hotels t={t}/>
       <DressCode t={t}/>
-      <Gallery t={t}/>
-      <Registry t={t}/>
       <RSVP t={t}/>
       <FAQ t={t}/>
       <Footer t={t}/>
