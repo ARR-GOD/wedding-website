@@ -1,0 +1,121 @@
+"use client";
+
+import { useState } from "react";
+import { WedIcon, HennaGlyph, HennaDivider, SectionHeader } from "./primitives";
+import type { Strings, City } from "@/lib/i18n";
+
+function IndiaMap({ cities, active, setActive }: { cities: City[]; active: number; setActive: (i: number) => void }) {
+  return (
+    <div style={{ position: "relative", aspectRatio: "3 / 4", maxWidth: 460, margin: "0 auto", width: "100%" }}>
+      <svg viewBox="0 0 100 130" style={{ width: "100%", height: "100%", display: "block" }}>
+        <defs>
+          <pattern id="dots" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(232,148,20,0.25)"/>
+          </pattern>
+        </defs>
+        <path d="M 22 22 Q 18 20 17 24 Q 14 26 16 30 L 18 34 Q 14 36 18 40 Q 16 44 20 46 L 24 50 L 22 56 Q 26 62 28 58 L 30 60 L 30 66 Q 28 74 32 78 L 34 86 Q 36 94 40 100 L 44 110 Q 46 116 42 118 L 38 122 Q 42 124 46 122 L 50 116 Q 50 108 52 102 L 56 94 Q 60 86 58 80 L 56 72 Q 60 70 62 66 L 64 58 Q 70 56 74 60 L 78 56 Q 80 50 76 46 Q 80 42 78 38 L 76 32 Q 78 26 74 24 Q 70 20 66 22 L 60 24 L 54 22 L 48 24 L 42 22 L 36 24 Z"
+          fill="url(#dots)" stroke="var(--henna-500)" strokeWidth="0.4" strokeLinejoin="round"/>
+        <g transform="translate(82, 16)" stroke="var(--henna-500)" strokeWidth="0.3" fill="none">
+          <circle cx="0" cy="0" r="6"/>
+          <path d="M 0 -5 L 1 0 L 0 5 L -1 0 Z" fill="var(--sindoor-500)" stroke="none"/>
+          <text x="0" y="-7" textAnchor="middle" fontSize="3" fill="var(--henna-700)" fontFamily="var(--font-serif)">N</text>
+        </g>
+      </svg>
+      {cities.map((c, i) => (
+        <button key={c.name} onClick={() => setActive(i)}
+          style={{
+            position: "absolute", left: `${c.x}%`, top: `${c.y}%`,
+            transform: "translate(-50%, -100%)", background: "none", border: "none", cursor: "pointer", padding: 0,
+          }}>
+          <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {active === i && (
+              <div style={{ position: "absolute", top: 0, width: 36, height: 36, borderRadius: "50%", background: "var(--sindoor-500)", opacity: 0.3, animation: "pin-pulse 1.6s ease-in-out infinite", transform: "translate(-50%, -50%)", left: "50%" }}/>
+            )}
+            <div style={{
+              width: 16, height: 16, borderRadius: "50% 50% 50% 0", background: c.role === "wedding" ? "var(--marigold-400)" : "var(--sindoor-500)",
+              transform: "rotate(-45deg)", border: "2px solid var(--ivory)", boxShadow: active === i ? "0 0 0 3px var(--marigold-300)" : "none",
+              transition: "all 200ms",
+            }}/>
+            <div style={{
+              marginTop: 6, padding: "2px 8px", borderRadius: 999,
+              background: active === i ? "var(--henna-700)" : "var(--bg-raised)",
+              color: active === i ? "#FBE9B8" : "var(--henna-700)",
+              fontSize: 11, fontWeight: 600, letterSpacing: 0.4, whiteSpace: "nowrap",
+              border: "1px solid", borderColor: active === i ? "var(--henna-700)" : "#E5D5B5",
+              fontFamily: "var(--font-body)",
+              transition: "all 200ms",
+            }}>{c.name}</div>
+          </div>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function Travel({ t }: { t: Strings }) {
+  const [active, setActive] = useState(0);
+  const cities = t.cities;
+  const c = cities[active];
+
+  return (
+    <section id="travel" className="section-y" style={{ background: "var(--ivory)" }}>
+      <div className="wed-container">
+        <SectionHeader eyebrow={t.travel.eyebrow} script="Explore" title={t.travel.title} lead={t.travel.lead}/>
+
+        <div style={{ marginTop: 70, display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 56, alignItems: "start" }} className="travel-grid">
+          <IndiaMap cities={cities} active={active} setActive={setActive}/>
+          <div style={{ position: "sticky", top: 100 }}>
+            <div style={{ position: "relative", padding: 36, background: "var(--bg-raised)", border: "1px solid #E5D5B5" }}>
+              <div style={{ position: "absolute", top: 14, right: 14 }}>
+                <HennaGlyph size={32} color="var(--marigold-300)"/>
+              </div>
+              {c.tag && (
+                <div style={{ display: "inline-block", padding: "4px 10px", background: "var(--sindoor-500)", color: "#fff", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", fontWeight: 600, marginBottom: 14 }}>
+                  &#9733; {c.tag}
+                </div>
+              )}
+              <div className="eyebrow-caps" style={{ color: "var(--henna-500)" }}>City {String(active + 1).padStart(2, "0")}</div>
+              <h3 className="serif-display" style={{ fontSize: 48, marginTop: 4, marginBottom: 4 }}>{c.name}</h3>
+              <div className="script" style={{ fontSize: 28, color: "var(--marigold-500)", marginBottom: 20 }}>{c.vibe}</div>
+              <div style={{ borderTop: "1px solid #E5D5B5", paddingTop: 18 }}>
+                <div className="eyebrow-caps" style={{ marginBottom: 12 }}>What to do</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                  {c.todo.map((item, i) => (
+                    <li key={i} style={{ display: "flex", gap: 10, padding: "7px 0", fontSize: 15, color: "#5b4632" }}>
+                      <span style={{ color: "var(--marigold-500)", flex: "0 0 auto" }}>&#10022;</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {c.stay && (
+                  <div style={{ marginTop: 18, padding: 14, background: "var(--cream)", borderLeft: "2px solid var(--sindoor-500)" }}>
+                    <div className="eyebrow-caps" style={{ marginBottom: 4 }}>Where to stay</div>
+                    <a href={c.stay.url} target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-serif)", fontSize: 20 }}>{c.stay.name} &#8594;</a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 100 }}>
+          <div style={{ textAlign: "center", marginBottom: 50 }}>
+            <h3 className="serif-display" style={{ fontSize: 36 }}>{t.travel.tipsTitle}</h3>
+            <div style={{ marginTop: 16, display: "flex", justifyContent: "center" }}><HennaDivider/></div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+            {t.travel.tips.map((tip, i) => (
+              <div key={i} className="reveal" style={{ padding: 28, background: "var(--bg-raised)", border: "1px solid #E5D5B5", position: "relative" }}>
+                <div className="dot-grid-bg" style={{ width: 44, height: 44, borderRadius: 2, border: "1px solid #E5D5B5", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16, background: "var(--ivory)" }}>
+                  <WedIcon name={tip.icon} size={22} color="var(--henna-700)"/>
+                </div>
+                <h4 className="serif-display" style={{ fontSize: 20, marginBottom: 8 }}>{tip.title}</h4>
+                <p style={{ fontSize: 14, lineHeight: 1.6 }}>{tip.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
