@@ -19,6 +19,8 @@ export function WedIcon({ name, size = 24, color = "currentColor", strokeWidth =
     "calendar-heart": <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M12 17l-2.5-2a1.5 1.5 0 0 1 2.5-2 1.5 1.5 0 0 1 2.5 2L12 17z"/></>,
     plane: <path d="M22 11l-9 9-2-6-6-2 9-9 4 1 4 4z"/>,
     car: <><path d="M5 17V11l2-5h10l2 5v6"/><path d="M3 17h18v-2H3z"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></>,
+    passport: <><rect x="5" y="3" width="14" height="18" rx="1.5"/><circle cx="12" cy="11" r="3"/><path d="M9 17h6"/></>,
+    phone: <><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></>,
     wallet: <><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 14h2"/></>,
     luxury: <><path d="M5 7l3-3h8l3 3-7 12z"/><path d="M5 7h14M9 7l3 12M15 7l-3 12"/></>,
     heart: <path d="M12 21s-7-5-9-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 5-9 10-9 10z"/>,
@@ -44,6 +46,20 @@ export function HennaGlyph({ size = 32, color = "var(--marigold-400)" }: { size?
         <circle cx="16" cy="28" r="0.8" fill={color}/>
         <circle cx="4" cy="16" r="0.8" fill={color}/>
         <circle cx="28" cy="16" r="0.8" fill={color}/>
+      </g>
+    </svg>
+  );
+}
+
+export function CornerOrnament({ rotate = 0, color = "var(--marigold-300)" }: { rotate?: number; color?: string }) {
+  return (
+    <svg width="56" height="56" viewBox="0 0 56 56" style={{ transform: `rotate(${rotate}deg)`, opacity: 0.65 }}>
+      <g fill="none" stroke={color} strokeWidth="0.9" strokeLinecap="round">
+        <path d="M4 4 Q 28 4 28 28"/>
+        <path d="M4 4 Q 4 28 28 28"/>
+        <path d="M4 12 Q 16 12 16 24"/>
+        <circle cx="28" cy="28" r="2"/>
+        <circle cx="4" cy="4" r="1.2" fill={color}/>
       </g>
     </svg>
   );

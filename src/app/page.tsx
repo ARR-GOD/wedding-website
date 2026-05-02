@@ -4,11 +4,10 @@ import { useState, useEffect } from "react";
 import STRINGS, { type Lang } from "@/lib/i18n";
 import Nav from "@/components/nav";
 import Hero from "@/components/hero";
-import Story from "@/components/story";
 import Itinerary from "@/components/itinerary";
+import GettingThereSection from "@/components/getting-there";
 import Ceremonies from "@/components/ceremonies";
 import Travel from "@/components/travel";
-import DressCode from "@/components/dress-code";
 import RSVP from "@/components/rsvp";
 import FAQ from "@/components/faq";
 import Footer from "@/components/footer";
@@ -67,11 +66,10 @@ export default function Home() {
     <>
       <Nav t={t} lang={lang} setLang={setLang}/>
       <Hero t={t} weddingDate={weddingDate}/>
-      <Story t={t}/>
       <Itinerary t={t}/>
+      <GettingThereSection t={t}/>
       <Ceremonies t={t}/>
       <Travel t={t}/>
-      <DressCode t={t}/>
       <RSVP t={t}/>
       <FAQ t={t}/>
       <Footer t={t}/>

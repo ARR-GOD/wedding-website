@@ -30,9 +30,51 @@ function IndiaMap({ cities, active, setActive }: { cities: City[]; active: numbe
             <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(201,163,106,0.3)"/>
           </pattern>
         </defs>
-        <path d="M 22 22 Q 18 20 17 24 Q 14 26 16 30 L 18 34 Q 14 36 18 40 Q 16 44 20 46 L 24 50 L 22 56 Q 26 62 28 58 L 30 60 L 30 66 Q 28 74 32 78 L 34 86 Q 36 94 40 100 L 44 110 Q 46 116 42 118 L 38 122 Q 42 124 46 122 L 50 116 Q 50 108 52 102 L 56 94 Q 60 86 58 80 L 56 72 Q 60 70 62 66 L 64 58 Q 70 56 74 60 L 78 56 Q 80 50 76 46 Q 80 42 78 38 L 76 32 Q 78 26 74 24 Q 70 20 66 22 L 60 24 L 54 22 L 48 24 L 42 22 L 36 24 Z"
-          fill="url(#dots)" stroke="var(--henna-500)" strokeWidth="0.4" strokeLinejoin="round"/>
-        <g transform="translate(82, 16)" stroke="var(--henna-500)" strokeWidth="0.3" fill="none">
+        {/* Geographic India outline */}
+        <path d="
+          M 27 11
+          C 31 8, 38 6, 46 5
+          C 54 4.5, 62 5, 70 8
+          C 76 10, 81 13, 84 17
+          C 87 19, 90 19, 92 21
+          C 94 23, 92 26, 89 26
+          C 86 27, 84 29, 86 33
+          C 88 36, 90 39, 88 42
+          C 86 44, 82 43, 78 42
+          C 75 41, 72 39, 70 38
+          C 67 37, 65 38, 65 41
+          C 65 43, 67 45, 65 47
+          C 64 49, 64 52, 66 54
+          C 70 57, 73 61, 73 65
+          C 73 70, 70 73, 68 75
+          C 65 77, 64 80, 64 84
+          C 64 89, 62 94, 60 99
+          C 58 105, 55 110, 52 114
+          C 50 117, 48 117, 47 114
+          C 46 110, 47 105, 47 100
+          C 47 96, 46 93, 44 91
+          C 42 88, 40 83, 39 78
+          C 38 73, 36 68, 34 64
+          C 32 60, 30 56, 28 53
+          C 26 51, 23 51, 21 52
+          C 19 53, 17 52, 16 50
+          C 14 47, 13 43, 14 40
+          C 15 37, 17 36, 18 33
+          C 19 30, 17 28, 14 28
+          C 11 28, 10 30, 11 33
+          C 12 36, 11 38, 9 38
+          C 7 38, 7 35, 8 32
+          C 9 28, 12 25, 14 22
+          C 16 19, 18 17, 21 15
+          C 23 13, 25 12, 27 11 Z"
+          fill="url(#dots)" stroke="var(--henna-500)" strokeWidth="0.5" strokeLinejoin="round"/>
+        {/* Bangladesh inset */}
+        <path d="M 70 41 C 73 42, 76 43, 78 46 C 80 49, 79 52, 76 53 C 73 54, 70 53, 68 51 C 66 49, 66 45, 70 41 Z"
+          fill="var(--ivory)" stroke="var(--henna-500)" strokeWidth="0.35" strokeLinejoin="round" opacity="0.95"/>
+        {/* Sri Lanka */}
+        <path d="M 56 117 C 54 118, 53 121, 54 124 C 55 126, 58 126, 59 124 C 60 122, 60 119, 58 117 C 57.5 116.5, 56.5 116.5, 56 117 Z"
+          fill="url(#dots)" stroke="var(--henna-500)" strokeWidth="0.4" strokeLinejoin="round" opacity="0.7"/>
+        <g transform="translate(86, 12)" stroke="var(--henna-500)" strokeWidth="0.3" fill="none">
           <circle cx="0" cy="0" r="6"/>
           <path d="M 0 -5 L 1 0 L 0 5 L -1 0 Z" fill="var(--sindoor-500)" stroke="none"/>
           <text x="0" y="-7" textAnchor="middle" fontSize="3" fill="var(--henna-700)" fontFamily="var(--font-serif)">N</text>
@@ -140,7 +182,18 @@ export default function Travel({ t }: { t: Strings }) {
                   <WedIcon name={tip.icon} size={22} color="var(--henna-700)"/>
                 </div>
                 <h4 className="serif-display" style={{ fontSize: 20, marginBottom: 8 }}>{tip.title}</h4>
-                <p style={{ fontSize: 14, lineHeight: 1.6 }}>{tip.body}</p>
+                {Array.isArray(tip.body) ? (
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                    {tip.body.map((line, j) => (
+                      <li key={j} style={{ display: "flex", gap: 8, padding: "4px 0", fontSize: 14, lineHeight: 1.6, color: "#5b4632" }}>
+                        <span style={{ color: "var(--marigold-500)", flex: "0 0 auto" }}>&#10022;</span>
+                        <span dangerouslySetInnerHTML={{ __html: line }}/>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p style={{ fontSize: 14, lineHeight: 1.6 }}>{tip.body}</p>
+                )}
               </div>
             ))}
           </div>

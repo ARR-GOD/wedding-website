@@ -235,6 +235,20 @@ a:hover { color: var(--sindoor-700); }
   mix-blend-mode: overlay;
 }
 
+/* Cream variant for Getting There — light backdrop to break continuity
+   between dark Itinerary above and dark Ceremonies-or-RSVP below. */
+.getting-there-cream {
+  position: relative;
+  overflow: hidden;
+  color: var(--henna-700);
+}
+.getting-there-cream::before {
+  content: ""; position: absolute; inset: 0;
+  background: url('/noise-texture.png') center/400px repeat;
+  opacity: 0.10; pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
 /* Pin pulse animation */
 @keyframes pin-pulse {
   0%, 100% { transform: scale(1); opacity: 1; }

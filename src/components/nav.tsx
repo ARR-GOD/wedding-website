@@ -32,11 +32,10 @@ export default function Nav({ t, lang, setLang }: { t: Strings; lang: Lang; setL
   }, []);
 
   const links = [
-    { href: "#story", label: t.nav.story },
     { href: "#itinerary", label: t.nav.itinerary },
+    { href: "#getting-there", label: lang === "fr" ? "Comment venir" : "Getting there" },
     { href: "#ceremonies", label: t.nav.ceremonies },
     { href: "#travel", label: t.nav.travel },
-    { href: "#dress-code", label: t.nav.dressCode },
     { href: "#faq", label: t.nav.faq },
   ];
 
