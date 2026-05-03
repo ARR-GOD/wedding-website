@@ -382,6 +382,10 @@ a:hover { color: var(--sindoor-700); }
   .india-map-wrap { max-width: 360px !important; }
   .travel-sticky { position: static !important; top: auto !important; }
 
+  /* Ceremony panel — text + illustration stack */
+  .cer-panel-body { grid-template-columns: 1fr !important; }
+  .cer-illus-wrap { max-width: 200px !important; margin: 0 auto !important; order: -1; }
+
   /* RSVP form — tighter padding */
   .rsvp-form { padding: 24px !important; }
 }

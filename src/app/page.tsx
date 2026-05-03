@@ -66,8 +66,8 @@ export default function Home() {
     <>
       <Nav t={t} lang={lang} setLang={setLang}/>
       <Hero t={t} weddingDate={weddingDate}/>
-      <Itinerary t={t}/>
       <GettingThereSection t={t}/>
+      <Itinerary t={t}/>
       <Ceremonies t={t}/>
       <Travel t={t}/>
       <RSVP t={t}/>

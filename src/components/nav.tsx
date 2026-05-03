@@ -32,8 +32,8 @@ export default function Nav({ t, lang, setLang }: { t: Strings; lang: Lang; setL
   }, []);
 
   const links = [
-    { href: "#itinerary", label: t.nav.itinerary },
     { href: "#getting-there", label: lang === "fr" ? "Comment venir" : "Getting there" },
+    { href: "#itinerary", label: t.nav.itinerary },
     { href: "#ceremonies", label: t.nav.ceremonies },
     { href: "#travel", label: t.nav.travel },
     { href: "#faq", label: t.nav.faq },

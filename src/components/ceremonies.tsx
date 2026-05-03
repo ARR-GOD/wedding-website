@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { HennaGlyph, SectionHeader } from "./primitives";
+import { SectionHeader } from "./primitives";
+import CeremonyIllustration from "./ceremony-illustrations";
 import type { Strings } from "@/lib/i18n";
 
 export default function Ceremonies({ t }: { t: Strings }) {
@@ -28,13 +29,15 @@ export default function Ceremonies({ t }: { t: Strings }) {
             ))}
           </div>
           <div className="reveal" style={{ position: "relative", padding: "clamp(24px, 4vw, 40px)", background: "var(--bg-raised)", border: "1px solid #E5D5B5" }}>
-            <div style={{ position: "absolute", top: 16, right: 16 }}>
-              <HennaGlyph size={36} color="var(--marigold-300)"/>
-            </div>
             <div className="eyebrow-caps" style={{ color: "var(--sindoor-500)" }}>Ceremony {String(active + 1).padStart(2, "0")} / {String(t.ceremonies.list.length).padStart(2, "0")}</div>
             <h3 className="serif-display" style={{ fontSize: "clamp(28px, 5vw, 42px)", marginTop: 12, marginBottom: 6 }}>{t.ceremonies.list[active].name}</h3>
             <div className="script" style={{ fontSize: "clamp(24px, 3.5vw, 32px)", color: "var(--sindoor-500)", marginBottom: 22 }}>{t.ceremonies.list[active].short}</div>
-            <p style={{ fontSize: 16, lineHeight: 1.7, color: "#5b4632", maxWidth: 580 }}>{t.ceremonies.list[active].body}</p>
+            <div className="cer-panel-body" style={{ display: "grid", gridTemplateColumns: "1fr 220px", gap: "clamp(20px, 3vw, 36px)", alignItems: "start" }}>
+              <p style={{ fontSize: 16, lineHeight: 1.7, color: "#5b4632", margin: 0 }}>{t.ceremonies.list[active].body}</p>
+              <div className="cer-illus-wrap" style={{ width: "100%", maxWidth: 240 }}>
+                <CeremonyIllustration name={t.ceremonies.list[active].name}/>
+              </div>
+            </div>
           </div>
         </div>
       </div>
