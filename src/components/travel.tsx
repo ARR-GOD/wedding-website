@@ -137,8 +137,8 @@ export default function Travel({ t }: { t: Strings }) {
                 </div>
               )}
               <div className="eyebrow-caps" style={{ color: "var(--henna-500)" }}>City {String(active + 1).padStart(2, "0")}</div>
-              <h3 className="serif-display" style={{ fontSize: 48, marginTop: 4, marginBottom: 4 }}>{c.name}</h3>
-              <div className="script" style={{ fontSize: 28, color: "var(--marigold-500)", marginBottom: 20 }}>{c.vibe}</div>
+              <h3 className="serif-display" style={{ fontSize: "clamp(34px, 6vw, 48px)", marginTop: 4, marginBottom: 4 }}>{c.name}</h3>
+              <div className="script" style={{ fontSize: "clamp(22px, 3.5vw, 28px)", color: "var(--marigold-500)", marginBottom: 20 }}>{c.vibe}</div>
               {c.photos && c.photos.length > 0 && (
                 <div style={{ display: "grid", gridTemplateColumns: `repeat(${c.photos.length}, 1fr)`, gap: 6, marginBottom: 20 }}>
                   {c.photos.map((p, i) => (

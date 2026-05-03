@@ -4,9 +4,9 @@ import { useState } from "react";
 import { WedIcon, SectionHeader } from "./primitives";
 import type { Strings } from "@/lib/i18n";
 
-function ItineraryCard({ ev, align }: { ev: { time: string; title: string; body: string }; align: string }) {
+function ItineraryCard({ ev, align }: { ev: { time: string; title: string; body: string }; align: "left" | "right" }) {
   return (
-    <div style={{ padding: align === "right" ? "16px 28px 16px 0" : "16px 0 16px 28px", textAlign: align === "right" ? "right" : "left" }}>
+    <div className="timeline-card-inner" data-align={align}>
       <div className="eyebrow-caps" style={{ color: "var(--marigold-300)", fontSize: 10 }}>{ev.time}</div>
       <h4 className="serif-display" style={{ fontSize: 22, color: "#FBE9B8", marginTop: 4 }}>{ev.title}</h4>
       <p style={{ fontSize: 14, color: "rgba(245,233,208,0.72)", marginTop: 6, lineHeight: 1.5 }}>{ev.body}</p>
@@ -44,25 +44,27 @@ export default function Itinerary({ t }: { t: Strings }) {
 
         <div style={{ marginTop: 30, textAlign: "center" }}>
           <div className="eyebrow-caps" style={{ color: "var(--marigold-200)" }}>{day.date}</div>
-          <h3 className="serif-display" style={{ fontSize: 38, color: "#FBE9B8", marginTop: 6 }}>{day.title}</h3>
+          <h3 className="serif-display" style={{ fontSize: "clamp(28px, 5vw, 38px)", color: "#FBE9B8", marginTop: 6 }}>{day.title}</h3>
           <p style={{ color: "rgba(245,233,208,0.7)", marginTop: 6 }}>{day.subtitle}</p>
         </div>
 
-        <div style={{ marginTop: 50, maxWidth: 820, margin: "50px auto 0", position: "relative" }}>
-          <div style={{ position: "absolute", left: "calc(50% - 0.5px)", top: 0, bottom: 0, width: 1, background: "linear-gradient(var(--marigold-300), rgba(201,163,106,0.05))" }} className="timeline-line"/>
-          {events.map((ev, i) => (
-            <div key={ev.title} className="timeline-row" style={{
-              display: "grid", gridTemplateColumns: "1fr 60px 1fr", gap: 0, marginBottom: 24, alignItems: "center",
-            }}>
-              {i % 2 === 0 ? <ItineraryCard ev={ev} align="right"/> : <div/>}
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: "50%", background: "var(--bg-dark)", border: "1px solid var(--marigold-300)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--marigold-200)" }}>
-                  <WedIcon name={ev.icon} size={20}/>
+        <div className="timeline-wrap" style={{ marginTop: 50, maxWidth: 820, marginLeft: "auto", marginRight: "auto", position: "relative" }}>
+          <div className="timeline-line"/>
+          {events.map((ev, i) => {
+            const side = i % 2 === 0 ? "left" : "right";
+            return (
+              <div key={ev.title} className={`timeline-row timeline-row--${side}`}>
+                <div className="timeline-icon-cell">
+                  <div className="timeline-icon-dot">
+                    <WedIcon name={ev.icon} size={20}/>
+                  </div>
+                </div>
+                <div className="timeline-card-cell">
+                  <ItineraryCard ev={ev} align={side === "left" ? "right" : "left"}/>
                 </div>
               </div>
-              {i % 2 === 1 ? <ItineraryCard ev={ev} align="left"/> : <div/>}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

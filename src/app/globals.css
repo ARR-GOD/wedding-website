@@ -285,6 +285,61 @@ a:hover { color: var(--sindoor-700); }
 /* Gallery hover */
 .gallery-grid button:hover img { transform: scale(1.04); }
 
+/* ===== Timeline (Itinerary) layout ===== */
+.timeline-wrap { position: relative; }
+.timeline-line {
+  position: absolute;
+  left: calc(50% - 0.5px);
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(var(--marigold-300), rgba(201,163,106,0.05));
+  pointer-events: none;
+}
+.timeline-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.timeline-row--left .timeline-card-cell { grid-column: 1; grid-row: 1; }
+.timeline-row--left .timeline-icon-cell { grid-column: 2; grid-row: 1; }
+.timeline-row--right .timeline-icon-cell { grid-column: 2; grid-row: 1; }
+.timeline-row--right .timeline-card-cell { grid-column: 3; grid-row: 1; }
+.timeline-icon-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.timeline-icon-dot {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 1px solid var(--marigold-300);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--marigold-200);
+}
+.timeline-card-inner {
+  padding: 16px 0;
+}
+.timeline-row--left .timeline-card-inner { padding-right: 28px; text-align: right; }
+.timeline-row--right .timeline-card-inner { padding-left: 28px; text-align: left; }
+
+@media (max-width: 900px) {
+  .timeline-line { left: 23px !important; }
+  .timeline-row {
+    grid-template-columns: 48px 1fr !important;
+  }
+  .timeline-row--left .timeline-card-cell,
+  .timeline-row--right .timeline-card-cell { grid-column: 2 !important; grid-row: 1 !important; }
+  .timeline-row--left .timeline-icon-cell,
+  .timeline-row--right .timeline-icon-cell { grid-column: 1 !important; grid-row: 1 !important; }
+  .timeline-row--left .timeline-card-inner,
+  .timeline-row--right .timeline-card-inner {
+    padding: 8px 0 8px 16px !important;
+    text-align: left !important;
+  }
+}
+
 /* Responsive overrides */
 @media (max-width: 900px) {
   .desktop-only { display: none !important; }
@@ -294,15 +349,43 @@ a:hover { color: var(--sindoor-700); }
   .registry-grid,
   .rsvp-grid,
   .dress-grid { grid-template-columns: 1fr !important; }
-  .timeline-line { left: 24px !important; }
-  .timeline-row {
-    grid-template-columns: 50px 1fr !important;
-  }
-  .timeline-row > *:nth-child(1) { grid-column: 1; grid-row: 1; }
-  .timeline-row > *:nth-child(2) { grid-column: 1; grid-row: 1; }
-  .timeline-row > *:nth-child(3) { grid-column: 2; grid-row: 1; text-align: left !important; padding: 8px 0 8px 12px !important; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Hero */
+  .hero-split { grid-template-columns: 1fr !important; gap: 50px !important; }
+  .hero-section { padding-top: 80px !important; padding-bottom: 60px !important; }
+
+  /* Countdown — fits the smaller hero */
+  .countdown-box { padding: 14px 14px !important; gap: 4px !important; }
+  .countdown-cell { min-width: 56px !important; }
+  .countdown-sep { height: 28px !important; }
+
+  /* Day tabs in itinerary */
+  .day-tabs button { padding: 10px 16px !important; font-size: 15px !important; }
+
+  /* Ceremonies — sidebar becomes horizontal scrollable list */
+  .ceremony-list {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ceremony-list::-webkit-scrollbar { display: none; }
+  .ceremony-list button {
+    flex: 0 0 auto !important;
+    min-width: 180px !important;
+  }
+
+  /* Travel — map smaller, drop sticky */
+  .india-map-wrap { max-width: 360px !important; }
+  .travel-sticky { position: static !important; top: auto !important; }
+
+  /* RSVP form — tighter padding */
+  .rsvp-form { padding: 24px !important; }
 }
+
 @media (min-width: 901px) {
   .mobile-only { display: none !important; }
 }
