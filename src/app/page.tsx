@@ -8,6 +8,7 @@ import Itinerary from "@/components/itinerary";
 import GettingThereSection from "@/components/getting-there";
 import Ceremonies from "@/components/ceremonies";
 import Travel from "@/components/travel";
+import DressCode from "@/components/dress-code";
 import RSVP from "@/components/rsvp";
 import FAQ from "@/components/faq";
 import Footer from "@/components/footer";
@@ -70,6 +71,7 @@ export default function Home() {
       <Itinerary t={t}/>
       <Ceremonies t={t}/>
       <Travel t={t}/>
+      <DressCode t={t} lang={lang}/>
       <RSVP t={t}/>
       <FAQ t={t}/>
       <Footer t={t}/>

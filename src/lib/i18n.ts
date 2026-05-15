@@ -359,8 +359,8 @@ const STRINGS: Record<Lang, Strings> = {
     hotels: { eyebrow: "Where to stay", title: "Hotels & accommodations", lead: "We've blocked rooms at the wedding venue and a few alternates nearby. Reach out before booking — we may have group rates." },
     dressCode: {
       eyebrow: "Wear with joy",
-      title: "Dress code guide",
-      lead: "Indian celebrations are colourful — guests are encouraged to dress accordingly. Here's a guide for each event.",
+      title: "Dress Code",
+      lead: "The wedding unfolds across two days, in two palettes. We'd be delighted if you wore Indian attire — but an elegant Western outfit in the color of the day is equally welcome. What matters most is your presence.",
       shopTitle: "Where to shop in India",
       shopBody: "Most cities have markets where you can buy beautiful Indian outfits at every budget. We can connect you with our families for recommendations once you arrive.",
     },
@@ -616,8 +616,8 @@ const STRINGS: Record<Lang, Strings> = {
     hotels: { eyebrow: "Ou dormir", title: "Hotels & hebergements", lead: "Nous avons reserve des chambres au lieu du mariage et dans quelques alternatives proches. Contactez-nous avant de reserver — nous avons peut-etre des tarifs de groupe." },
     dressCode: {
       eyebrow: "Habillez-vous avec joie",
-      title: "Guide vestimentaire",
-      lead: "Les celebrations indiennes sont colorees — les invites sont encourages a s'habiller en consequence. Voici un guide pour chaque evenement.",
+      title: "Dress Code",
+      lead: "Le mariage se vit en deux jours, en deux palettes. Nous serions ravis que vous portiez une tenue indienne — mais une tenue occidentale élégante dans la couleur du jour est tout aussi bienvenue. L'essentiel, c'est votre présence.",
       shopTitle: "Ou acheter en Inde",
       shopBody: "La plupart des villes ont des marches ou trouver de magnifiques tenues indiennes a tous les prix. On peut vous mettre en lien avec nos familles pour des recommandations sur place.",
     },
