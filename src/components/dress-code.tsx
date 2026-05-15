@@ -261,6 +261,154 @@ function DCItemsTable({ items, lang }: { items: FlatItem[]; lang: Lang }) {
   );
 }
 
+// ---- Day-by-day "what to wear" guide ----------------------------------------
+interface DayGuide {
+  key: "day1-mehendi" | "day2-haldi" | "day2-wedding";
+  badge: { en: string; fr: string };
+  title: { en: string; fr: string };
+  palette: { en: string; fr: string };
+  men: { en: string; fr: string };
+  women: { en: string; fr: string };
+  swatches: string[];
+}
+
+const DAY_GUIDES: DayGuide[] = [
+  {
+    key: "day1-mehendi",
+    badge: { en: "Day 1", fr: "Jour 1" },
+    title: { en: "Mehendi & Sangeet", fr: "Mehendi & Sangeet" },
+    palette: { en: "Bright, festive, full-colour", fr: "Vif, festif, plein de couleurs" },
+    men: {
+      en: "Suits work — and if you're feeling adventurous, browse the Indian outfits linked below.",
+      fr: "Le costume marche très bien — et si vous êtes motivés, regardez les tenues indiennes listées plus bas.",
+    },
+    women: {
+      en: "Indian attire is strongly encouraged. The links below cover every budget and style.",
+      fr: "Les tenues indiennes sont vivement encouragées. Les liens plus bas couvrent tous les budgets et tous les styles.",
+    },
+    swatches: ["#E89414", "#B23A2E", "#7A4A21"],
+  },
+  {
+    key: "day2-haldi",
+    badge: { en: "Day 2 · Morning", fr: "Jour 2 · Matin" },
+    title: { en: "Haldi", fr: "Haldi" },
+    palette: { en: "Yellow, orange, cream", fr: "Jaune, orange, crème" },
+    men: {
+      en: "Linen trousers + linen shirt. Wear something you don't mind getting turmeric on.",
+      fr: "Pantalon et chemise en lin. Mettez quelque chose qui ne craint pas le curcuma.",
+    },
+    women: {
+      en: "A long dress in something light and breezy. Again — turmeric stains, so nothing precious.",
+      fr: "Une robe longue, fluide et légère. Pareil — le curcuma tache, donc rien de précieux.",
+    },
+    swatches: ["#F2B23A", "#E89414", "#FBF6EA"],
+  },
+  {
+    key: "day2-wedding",
+    badge: { en: "Day 2 · Evening", fr: "Jour 2 · Soir" },
+    title: { en: "The Wedding", fr: "Le mariage" },
+    palette: { en: "Pastel tones", fr: "Tons pastel" },
+    men: {
+      en: "Indian outfits are encouraged — see the linked options below.",
+      fr: "Les tenues indiennes sont encouragées — voir les options listées plus bas.",
+    },
+    women: {
+      en: "Indian outfits are encouraged — see the linked options below.",
+      fr: "Les tenues indiennes sont encouragées — voir les options listées plus bas.",
+    },
+    swatches: ["#E5C99A", "#C28A92", "#9A7570"],
+  },
+];
+
+function DCDayGuide({ lang }: { lang: Lang }) {
+  const fr = lang === "fr";
+  return (
+    <div className="reveal" style={{ marginTop: 48 }}>
+      <div style={{ textAlign: "center", marginBottom: 28 }}>
+        <div className="eyebrow-caps" style={{ color: "var(--marigold-500)", marginBottom: 8 }}>
+          {fr ? "Que porter" : "What to wear"}
+        </div>
+        <h3 style={{
+          fontFamily: "var(--font-serif)", fontSize: "clamp(24px, 3.5vw, 30px)",
+          color: "var(--henna-700)", fontWeight: 500, margin: 0,
+        }}>
+          {fr ? "Trois moments, trois palettes" : "Three moments, three palettes"}
+        </h3>
+      </div>
+
+      <div className="dc-day-guide-grid" style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: 16,
+      }}>
+        {DAY_GUIDES.map((g) => (
+          <div key={g.key} style={{
+            background: "var(--bg-raised)", border: "1px solid #E5D5B5",
+            padding: "clamp(20px, 2.5vw, 28px)",
+            display: "flex", flexDirection: "column", gap: 16,
+          }}>
+            {/* badge + title */}
+            <div>
+              <div style={{
+                display: "inline-block", padding: "3px 10px",
+                background: g.key === "day1-mehendi" ? "rgba(178,58,46,0.12)" : "rgba(122,74,33,0.12)",
+                color: g.key === "day1-mehendi" ? "var(--sindoor-500)" : "var(--henna-500)",
+                fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600,
+              }}>{fr ? g.badge.fr : g.badge.en}</div>
+              <h4 style={{
+                fontFamily: "var(--font-serif)", fontSize: 22, fontWeight: 500,
+                color: "var(--henna-700)", marginTop: 10, marginBottom: 0, lineHeight: 1.2,
+              }}>{fr ? g.title.fr : g.title.en}</h4>
+            </div>
+
+            {/* palette */}
+            <div>
+              <div className="eyebrow-caps" style={{ color: "var(--henna-500)", marginBottom: 8, fontSize: 10 }}>
+                {fr ? "Palette" : "Palette"}
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {g.swatches.map((c, i) => (
+                    <span key={i} style={{
+                      width: 18, height: 18, borderRadius: "50%",
+                      background: c, border: "1px solid rgba(78,46,18,0.18)",
+                      display: "inline-block",
+                    }}/>
+                  ))}
+                </div>
+                <span style={{
+                  fontFamily: "var(--font-serif)", fontSize: 13, fontStyle: "italic",
+                  color: "var(--marigold-500)",
+                }}>{fr ? g.palette.fr : g.palette.en}</span>
+              </div>
+            </div>
+
+            {/* women + men */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, borderTop: "1px solid #E5D5B5", paddingTop: 14 }}>
+              <div>
+                <div className="eyebrow-caps" style={{ color: "var(--sindoor-500)", marginBottom: 6, fontSize: 10 }}>
+                  {fr ? "Femmes" : "Women"}
+                </div>
+                <p style={{ fontSize: 14, color: "#5b4632", lineHeight: 1.55, margin: 0 }}>
+                  {fr ? g.women.fr : g.women.en}
+                </p>
+              </div>
+              <div>
+                <div className="eyebrow-caps" style={{ color: "var(--sindoor-500)", marginBottom: 6, fontSize: 10 }}>
+                  {fr ? "Hommes" : "Men"}
+                </div>
+                <p style={{ fontSize: 14, color: "#5b4632", lineHeight: 1.55, margin: 0 }}>
+                  {fr ? g.men.fr : g.men.en}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ---- Shipping & ordering info block -----------------------------------------
 function DCShippingInfo({ lang }: { lang: Lang }) {
   const fr = lang === "fr";
@@ -368,24 +516,16 @@ function DCShippingInfo({ lang }: { lang: Lang }) {
 export default function DressCode({ t, lang }: { t: Strings; lang: Lang }) {
   const [days, setDays]       = useState<string[]>([]);
   const [genders, setGenders] = useState<string[]>([]);
-  const [brands, setBrands]   = useState<string[]>([]);
 
   const allItems = useMemo(() => flattenItems(DRESSCODE_DATA), []);
-
-  const brandOptions: FilterOption[] = useMemo(() => {
-    const seen = new Set<string>();
-    allItems.forEach(it => seen.add(it.brand));
-    return [...seen].sort().map(b => ({ value: b, label: b }));
-  }, [allItems]);
 
   const filtered = useMemo(() => {
     return allItems.filter(it => {
       if (days.length    && !days.includes(it.day))       return false;
       if (genders.length && !genders.includes(it.gender)) return false;
-      if (brands.length  && !brands.includes(it.brand))   return false;
       return true;
     });
-  }, [allItems, days, genders, brands]);
+  }, [allItems, days, genders]);
 
   const dayOptions: FilterOption[] = [
     { value: "day1", label: lang === "fr" ? "Jour 1 — Mehendi & Cocktail" : "Day 1 — Mehendi & Cocktail" },
@@ -396,7 +536,7 @@ export default function DressCode({ t, lang }: { t: Strings; lang: Lang }) {
     { value: "men",   label: lang === "fr" ? "Hommes" : "Men" },
   ];
 
-  const hasActiveFilter = days.length + genders.length + brands.length > 0;
+  const hasActiveFilter = days.length + genders.length > 0;
 
   return (
     <section id="dress-code" className="section-y" style={{ background: "var(--ivory)" }}>
@@ -407,6 +547,8 @@ export default function DressCode({ t, lang }: { t: Strings; lang: Lang }) {
           title={t.dressCode.title}
           lead={t.dressCode.lead}
         />
+
+        <DCDayGuide lang={lang}/>
 
         <DCShippingInfo lang={lang}/>
 
@@ -419,16 +561,13 @@ export default function DressCode({ t, lang }: { t: Strings; lang: Lang }) {
             <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(20px, 4vw, 40px)" }}>
               <DCMultiFilter label={lang === "fr" ? "Jour" : "Day"} options={dayOptions} selected={days} onChange={setDays}/>
               <DCMultiFilter label={lang === "fr" ? "Genre" : "Gender"} options={genderOptions} selected={genders} onChange={setGenders}/>
-              {brandOptions.length > 1 && (
-                <DCMultiFilter label={lang === "fr" ? "Marque" : "Brand"} options={brandOptions} selected={brands} onChange={setBrands}/>
-              )}
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12, paddingTop: 4 }}>
               <div className="eyebrow-caps" style={{ color: "var(--henna-500)" }}>
                 {filtered.length} options
               </div>
               {hasActiveFilter && (
-                <button onClick={() => { setDays([]); setGenders([]); setBrands([]); }} style={{
+                <button onClick={() => { setDays([]); setGenders([]); }} style={{
                   padding: "6px 14px", border: "1px solid var(--henna-500)", background: "transparent",
                   cursor: "pointer", color: "var(--henna-700)", fontFamily: "var(--font-serif)",
                   fontSize: 13, letterSpacing: "0.05em",

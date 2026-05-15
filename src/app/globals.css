@@ -394,7 +394,10 @@ a:hover { color: var(--sindoor-700); }
   .mobile-only { display: none !important; }
 }
 
-/* Dress code — responsive grid for shipping/payment info */
+/* Dress code — responsive grids */
+@media (max-width: 900px) {
+  .dc-day-guide-grid { grid-template-columns: 1fr !important; }
+}
 @media (max-width: 720px) {
   .dc-shipping-grid { grid-template-columns: 1fr !important; }
 }
