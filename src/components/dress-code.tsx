@@ -196,7 +196,60 @@ function DCItemsTable({ items, lang }: { items: FlatItem[]; lang: Lang }) {
   const rowBorder = "1px solid #E5D5B5";
 
   return (
-    <div style={{ border: "1px solid #E5D5B5", background: "var(--bg-raised)", overflow: "auto" }}>
+    <>
+    {/* Mobile cards (visible under 720px) */}
+    <div className="dc-mobile-cards" style={{ display: "none", flexDirection: "column", gap: 12 }}>
+      {sorted.length === 0 && (
+        <div style={{
+          padding: "40px 14px", textAlign: "center", color: "var(--henna-500)",
+          fontStyle: "italic", border: "1px solid #E5D5B5", background: "var(--bg-raised)",
+          fontFamily: "var(--font-serif)",
+        }}>
+          {lang === "fr" ? "Aucun article ne correspond a ces filtres." : "No items match these filters."}
+        </div>
+      )}
+      {sorted.map((item, i) => {
+        const desc = describeStyle(item.style, lang);
+        return (
+          <div key={item._key || i} style={{
+            border: "1px solid #E5D5B5", background: "var(--bg-raised)",
+            padding: 16, display: "flex", flexDirection: "column", gap: 10,
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: "var(--font-serif)", fontSize: 15, color: "var(--henna-700)", fontWeight: 500, lineHeight: 1.3 }}>
+                  {item.productName}
+                </div>
+                <div style={{ fontSize: 11, color: "var(--marigold-500)", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 3, fontWeight: 600 }}>
+                  {item.brand}
+                </div>
+              </div>
+              {dayBadge(item.day)}
+            </div>
+            <div style={{ borderTop: "1px solid #E5D5B5", paddingTop: 10 }}>
+              <div style={{ fontFamily: "var(--font-serif)", fontSize: 13, color: "var(--henna-700)", fontWeight: 500 }}>{item.style}</div>
+              {desc && (
+                <div style={{ fontSize: 13, color: "#5b4632", marginTop: 4, lineHeight: 1.5, fontFamily: "var(--font-serif)" }}>{desc}</div>
+              )}
+              {item.notes && (
+                <div style={{ fontSize: 12, color: "var(--marigold-500)", fontStyle: "italic", marginTop: 6, lineHeight: 1.4, fontFamily: "var(--font-serif)" }}>
+                  ↳ {item.notes}
+                </div>
+              )}
+            </div>
+            <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
+              padding: "10px 14px", border: "1px solid var(--henna-500)",
+              color: "var(--henna-700)", textDecoration: "none", fontSize: 11, letterSpacing: "0.16em",
+              textTransform: "uppercase", fontFamily: "var(--font-serif)",
+              textAlign: "center", display: "block",
+            }}>{lang === "fr" ? "Voir" : "View"} ↗</a>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* Desktop table (hidden under 720px) */}
+    <div className="dc-table-wrap" style={{ border: "1px solid #E5D5B5", background: "var(--bg-raised)", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
       <table className="dc-table" style={{ width: "100%", borderCollapse: "collapse", fontFamily: "var(--font-serif)", minWidth: 720 }}>
         <thead>
           <tr>
@@ -258,6 +311,7 @@ function DCItemsTable({ items, lang }: { items: FlatItem[]; lang: Lang }) {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 

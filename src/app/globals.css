@@ -400,6 +400,9 @@ a:hover { color: var(--sindoor-700); }
 }
 @media (max-width: 720px) {
   .dc-shipping-grid { grid-template-columns: 1fr !important; }
+  /* Swap table → mobile cards under 720px */
+  .dc-table-wrap { display: none !important; }
+  .dc-mobile-cards { display: flex !important; }
 }
 
 /* Scrollbar hide */
