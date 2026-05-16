@@ -255,19 +255,17 @@ a:hover { color: var(--sindoor-700); }
   50% { transform: scale(1.45); opacity: 0.6; }
 }
 
-/* Reveal animation */
+/* Reveal animation — defaults to VISIBLE so the section is never blank if
+   JS / IntersectionObserver fail to run (slow connection, hydration race,
+   etc.). When JS adds the `.visible` class, the element re-animates in from
+   below; without JS, it's just statically visible. */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.reveal {
-  opacity: 0;
-  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  animation-play-state: paused;
-}
+.reveal { opacity: 1; }
 .reveal.visible {
-  animation-play-state: running;
-  opacity: 1;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 /* RSVP inputs on dark */

@@ -377,7 +377,7 @@ const DAY_GUIDES: DayGuide[] = [
 function DCDayGuide({ lang }: { lang: Lang }) {
   const fr = lang === "fr";
   return (
-    <div className="reveal" style={{ marginTop: 48 }}>
+    <div className="" style={{ marginTop: 48 }}>
       <div style={{ textAlign: "center", marginBottom: 28 }}>
         <div className="eyebrow-caps" style={{ color: "var(--marigold-500)", marginBottom: 8 }}>
           {fr ? "Que porter" : "What to wear"}
@@ -470,7 +470,7 @@ function DCShippingInfo({ lang }: { lang: Lang }) {
   const gold = "var(--marigold-500)";
 
   return (
-    <div className="reveal" style={{
+    <div className="" style={{
       marginTop: 48,
       background: "linear-gradient(180deg, #FFFCF3 0%, #FFF6E5 100%)",
       border: "1px solid var(--marigold-400)",
@@ -606,7 +606,7 @@ export default function DressCode({ t, lang }: { t: Strings; lang: Lang }) {
 
         <DCShippingInfo lang={lang}/>
 
-        <div className="reveal" style={{
+        <div className="" style={{
           marginTop: 48, padding: "clamp(20px, 3vw, 32px)",
           background: "linear-gradient(180deg, #FFF6E5 0%, #FFFCF3 60%)",
           border: "1px solid #E5D5B5",
